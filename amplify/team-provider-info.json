@@ -18,6 +18,9 @@
       },
       "predictions": {
         "adventurelooks": {}
+      },
+      "storage": {
+        "amplifyAdventurelooksStorage": {}
       }
     }
   }

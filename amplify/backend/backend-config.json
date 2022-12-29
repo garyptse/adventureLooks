@@ -33,5 +33,11 @@
       "identifyType": "identifyLabels"
     }
   },
-  "storage": {}
+  "storage": {
+    "amplifyAdventurelooksStorage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
+  }
 }

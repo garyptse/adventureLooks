@@ -15,5 +15,11 @@ export type AmplifyDependentResourcesAttributes = {
             "region": "string",
             "type": "string"
         }
+    },
+    "storage": {
+        "amplifyAdventurelooksStorage": {
+            "BucketName": "string",
+            "Region": "string"
+        }
     }
 }
