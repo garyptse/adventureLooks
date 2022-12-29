@@ -13,13 +13,7 @@ const NavigationContainer = styled.ul`
   display: flex;
   justify-content: space-between;
 `;
-const NavigationRedirect = styled.a`
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-`;
+
 const NavigationItem = styled.li`
   float: left;
 
@@ -42,7 +36,6 @@ const Button = styled.button`
   }
 `;
 function NavigationBar(navigationBarProps) {
-  const {} = navigationBarProps;
   const navigate = useNavigate();
 
   async function signOut() {
@@ -53,9 +46,7 @@ function NavigationBar(navigationBarProps) {
       console.log("error signing out: ", error);
     }
   }
-  async function goto(location) {
-    navigate(location, { replace: true });
-  }
+
   return (
     <NavigationContainer>
       <div>
