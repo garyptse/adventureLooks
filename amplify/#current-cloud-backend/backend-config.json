@@ -33,17 +33,5 @@
       "identifyType": "identifyLabels"
     }
   },
-  "storage": {
-    "adventurelooks2f27c1df": {
-      "service": "S3",
-      "serviceType": "imported",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": []
-    },
-    "s357bd67cc": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": []
-    }
-  }
+  "storage": {}
 }

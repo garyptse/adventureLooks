@@ -227,39 +227,6 @@
         }
       }
     },
-    "storages357bd67cc": {
-      "Type": "AWS::CloudFormation::Stack",
-      "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
-        "Parameters": {
-          "bucketName": "adventurelooksc52ac7135f8e4379a7bb0894b0cfe4c5",
-          "selectedGuestPermissions": "",
-          "selectedAuthenticatedPermissions": "s3:PutObject,s3:GetObject,s3:ListBucket,s3:DeleteObject",
-          "unauthRoleName": {
-            "Ref": "UnauthRoleName"
-          },
-          "authRoleName": {
-            "Ref": "AuthRoleName"
-          },
-          "s3PrivatePolicy": "Private_policy_57bd67cc",
-          "s3ProtectedPolicy": "Protected_policy_57bd67cc",
-          "s3PublicPolicy": "Public_policy_57bd67cc",
-          "s3ReadPolicy": "read_policy_57bd67cc",
-          "s3UploadsPolicy": "Uploads_policy_57bd67cc",
-          "authPolicyName": "s3_amplify_57bd67cc",
-          "unauthPolicyName": "s3_amplify_57bd67cc",
-          "AuthenticatedAllowList": "ALLOW",
-          "GuestAllowList": "DISALLOW",
-          "s3PermissionsAuthenticatedPrivate": "s3:PutObject,s3:GetObject,s3:DeleteObject",
-          "s3PermissionsAuthenticatedProtected": "s3:PutObject,s3:GetObject,s3:DeleteObject",
-          "s3PermissionsAuthenticatedPublic": "s3:PutObject,s3:GetObject,s3:DeleteObject",
-          "s3PermissionsAuthenticatedUploads": "s3:PutObject",
-          "s3PermissionsGuestPublic": "DISALLOW",
-          "s3PermissionsGuestUploads": "DISALLOW",
-          "env": "dev"
-        }
-      }
-    },
     "UpdateRolesWithIDPFunction": {
       "DependsOn": [
         "AuthRole",
