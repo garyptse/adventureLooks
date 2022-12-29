@@ -45,7 +45,7 @@
         "IdentityPoolName": "adventurelooks57843687_identitypool_57843687__dev",
         "UserPoolName": "adventurelooks57843687_userpool_57843687"
       },
-      "lastPushTimeStamp": "2022-12-29T17:58:43.580Z",
+      "lastPushTimeStamp": "2022-12-29T18:26:04.290Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/auth/adventurelooks57843687-cloudformation-template.json",
         "logicalId": "authadventurelooks57843687"
@@ -63,7 +63,7 @@
         "region": "us-east-1",
         "type": "LABELS"
       },
-      "lastPushTimeStamp": "2022-12-29T17:58:43.583Z",
+      "lastPushTimeStamp": "2022-12-29T18:26:04.293Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/predictions/adventurelooks-template.json",
         "logicalId": "predictionsadventurelooks"
@@ -82,6 +82,12 @@
         "Region": "us-east-1"
       },
       "lastPushTimeStamp": "2022-12-29T15:04:43.067Z"
+    },
+    "s357bd67cc": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "lastPushTimeStamp": "2022-12-29T18:34:25.893Z"
     }
   }
 }
