@@ -1,5 +1,6 @@
 //src/frontend/PhotoLabel.js
 import React, { useEffect, useState } from "react";
+import { Storage } from "@aws-amplify/storage";
 
 //Amplify Predictions
 import { Amplify, Predictions } from "aws-amplify";
@@ -67,6 +68,20 @@ function PhotoLabel() {
   }, [response]);
 
   const previewImage = imageFile ? URL.createObjectURL(imageFile) : null;
+
+  useEffect(() => {
+    async function storagePut() {
+      await Storage.put("test", imageFile, {
+        contentType: "image/png", // contentType is optional
+      });
+    }
+    if (imageFile) {
+      storagePut().catch((error) => {
+        console.log("Error uploading file: ", error);
+      });
+    }
+  }, [imageFile]);
+
   return (
     <div>
       <div align="center" style={{ backgroundColor: "lightblue" }}>
