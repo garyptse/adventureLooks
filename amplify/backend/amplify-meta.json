@@ -45,7 +45,7 @@
         "IdentityPoolName": "adventurelooks57843687_identitypool_57843687__dev",
         "UserPoolName": "adventurelooks57843687_userpool_57843687"
       },
-      "lastPushTimeStamp": "2022-12-29T15:04:34.809Z",
+      "lastPushTimeStamp": "2022-12-29T17:58:43.580Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/auth/adventurelooks57843687-cloudformation-template.json",
         "logicalId": "authadventurelooks57843687"
@@ -63,7 +63,7 @@
         "region": "us-east-1",
         "type": "LABELS"
       },
-      "lastPushTimeStamp": "2022-12-29T15:04:34.812Z",
+      "lastPushTimeStamp": "2022-12-29T17:58:43.583Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/predictions/adventurelooks-template.json",
         "logicalId": "predictionsadventurelooks"
