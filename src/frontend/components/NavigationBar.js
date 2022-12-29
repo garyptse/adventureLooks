@@ -28,7 +28,7 @@ const NavigationItem = styled.li`
   }
 `;
 
-const SignOut = styled.button`
+const Button = styled.button`
   display: block;
   color: white;
   text-align: center;
@@ -53,22 +53,25 @@ function NavigationBar(navigationBarProps) {
       console.log("error signing out: ", error);
     }
   }
+  async function goto(location) {
+    navigate(location, { replace: true });
+  }
   return (
     <NavigationContainer>
       <div>
         <NavigationItem>
-          <NavigationRedirect href="/">Home</NavigationRedirect>
+          <Button onClick={() => navigate("/")}>Home</Button>
         </NavigationItem>
         <NavigationItem>
-          <NavigationRedirect href="photos">Label Photos</NavigationRedirect>
+          <Button onClick={() => navigate("photos")}>Label Photos</Button>
         </NavigationItem>
         <NavigationItem>
-          <NavigationRedirect href="story">Story Album</NavigationRedirect>
+          <Button onClick={() => navigate("story")}>Story Album</Button>
         </NavigationItem>
       </div>
       <div>
         <NavigationItem>
-          <SignOut onClick={signOut}>Logout</SignOut>
+          <Button onClick={signOut}>Logout</Button>
         </NavigationItem>
       </div>
     </NavigationContainer>

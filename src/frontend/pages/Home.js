@@ -55,8 +55,8 @@ function Home() {
     <HomeContainer>
       <Title>Adventure Looks</Title>
       <ButtonContainer>
-        <Button onClick={redirectToStory}>Story</Button>
         <Button onClick={redirectToPhotos}>Photos</Button>
+        <Button onClick={redirectToStory}>Story</Button>
       </ButtonContainer>
     </HomeContainer>
   );
