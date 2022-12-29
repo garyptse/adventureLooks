@@ -1,0 +1,24 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-adventurelooks-dev-153114-authRole",
+      "UnauthRoleArn": "arn:aws:iam::287440137692:role/amplify-adventurelooks-dev-153114-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::287440137692:role/amplify-adventurelooks-dev-153114-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-adventurelooks-dev-153114-deployment",
+      "UnauthRoleName": "amplify-adventurelooks-dev-153114-unauthRole",
+      "StackName": "amplify-adventurelooks-dev-153114",
+      "StackId": "arn:aws:cloudformation:us-east-1:287440137692:stack/amplify-adventurelooks-dev-153114/b97a1520-8707-11ed-8e56-129c5a3cfaa3",
+      "AmplifyAppId": "d3od7iw2252oau"
+    },
+    "categories": {
+      "auth": {
+        "adventurelooks6079c6e1": {},
+        "adventurelooks57843687": {}
+      },
+      "predictions": {
+        "adventurelooks": {}
+      }
+    }
+  }
+}

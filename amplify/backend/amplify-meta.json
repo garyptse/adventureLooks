@@ -1,0 +1,74 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-adventurelooks-dev-153114-authRole",
+      "UnauthRoleArn": "arn:aws:iam::287440137692:role/amplify-adventurelooks-dev-153114-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::287440137692:role/amplify-adventurelooks-dev-153114-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-adventurelooks-dev-153114-deployment",
+      "UnauthRoleName": "amplify-adventurelooks-dev-153114-unauthRole",
+      "StackName": "amplify-adventurelooks-dev-153114",
+      "StackId": "arn:aws:cloudformation:us-east-1:287440137692:stack/amplify-adventurelooks-dev-153114/b97a1520-8707-11ed-8e56-129c5a3cfaa3",
+      "AmplifyAppId": "d3od7iw2252oau"
+    }
+  },
+  "auth": {
+    "adventurelooks57843687": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/auth/adventurelooks57843687-cloudformation-template.json",
+        "logicalId": "authadventurelooks57843687"
+      },
+      "lastPushTimeStamp": "2022-12-29T03:56:33.132Z",
+      "output": {
+        "UserPoolId": "us-east-1_3xeYTOZxQ",
+        "AppClientIDWeb": "562dg25fea7ephmjckhvhvsfu8",
+        "AppClientID": "7mk120tfkpukv5j0pu77ln4771",
+        "IdentityPoolId": "us-east-1:dc650868-b44c-4c2a-b6ed-2ece2a13323b",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:287440137692:userpool/us-east-1_3xeYTOZxQ",
+        "IdentityPoolName": "adventurelooks57843687_identitypool_57843687__dev",
+        "UserPoolName": "adventurelooks57843687_userpool_57843687"
+      },
+      "lastPushDirHash": "y+FDXrKEL3v2SfjLEDlxORSBlls="
+    }
+  },
+  "predictions": {
+    "adventurelooks": {
+      "providerPlugin": "awscloudformation",
+      "service": "Rekognition",
+      "dependsOn": [],
+      "identifyType": "identifyLabels",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/predictions/adventurelooks-template.json",
+        "logicalId": "predictionsadventurelooks"
+      },
+      "lastPushTimeStamp": "2022-12-29T03:56:33.585Z",
+      "output": {
+        "region": "us-east-1",
+        "type": "LABELS"
+      },
+      "lastPushDirHash": "SPJ0jkHZyULU5YTbeyqVZjl6noM="
+    }
+  }
+}
