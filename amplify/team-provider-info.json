@@ -18,6 +18,12 @@
       },
       "predictions": {
         "adventurelooks": {}
+      },
+      "storage": {
+        "adventurelooks2f27c1df": {
+          "bucketName": "adventurelooks-storage-cce5e25c153114-dev",
+          "region": "us-east-1"
+        }
       }
     }
   }
