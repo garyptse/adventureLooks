@@ -16,7 +16,7 @@ const ButtonContainer = styled.div`
 `;
 const HomeContainer = styled.div`
   background-color: #575366;
-  height: 100vh;
+  height: 110vh;
   position: relative;
 `;
 const Title = styled.h2`

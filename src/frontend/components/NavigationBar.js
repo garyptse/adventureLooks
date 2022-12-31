@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
+import { debounce } from "../utilities/debounce";
 
 const NavigationContainer = styled.ul`
   list-style-type: none;
@@ -12,6 +13,11 @@ const NavigationContainer = styled.ul`
 
   display: flex;
   justify-content: space-between;
+
+  position: fixed;
+  transition: top 0.3s;
+  width: 100%;
+  z-index: 1;
 `;
 
 const NavigationItem = styled.li`
@@ -30,6 +36,7 @@ const Button = styled.button`
   background-color: #32292f;
   cursor: pointer;
   border: none;
+  text-decoration: none;
 
   &:hover {
     background-color: #221c20;
@@ -47,8 +54,25 @@ function NavigationBar(navigationBarProps) {
     }
   }
 
+  //Debounce hide/show navigation on scroll
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const handleScroll = debounce(() => {
+    const currentScrollPos = window.pageYOffset;
+    setVisible(
+      (prevScrollPos > currentScrollPos &&
+        prevScrollPos - currentScrollPos > 70) ||
+        currentScrollPos < 10
+    );
+    setPrevScrollPos(currentScrollPos);
+  }, 100);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos, visible, handleScroll]);
+
   return (
-    <NavigationContainer>
+    <NavigationContainer style={{ top: visible ? "0" : "-60px" }}>
       <div>
         <NavigationItem>
           <Button onClick={() => navigate("/")}>Home</Button>

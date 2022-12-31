@@ -9,9 +9,8 @@ const ImageDescription = styled.div`
   color: #ffffff;
   opacity: 0%;
 `;
-const ImageFile = styled.img`
-  width: 25em;
-  height: 100%;
+const Image = styled.img`
+  width: 100%;
 `;
 
 const StoryBox = styled.div`
@@ -33,7 +32,7 @@ const StoryBox = styled.div`
   &:hover ${ImageDescription} {
     opacity: 1;
   }
-  &:hover ${ImageFile} {
+  &:hover ${Image} {
     background-color: #000;
     opacity: 0.5;
   }
@@ -43,7 +42,7 @@ function StoryContainer(storyContainerProps) {
   const { children, imageFile } = storyContainerProps;
   return (
     <StoryBox {...storyContainerProps}>
-      {imageFile ? <ImageFile src={imageFile} /> : null}
+      {imageFile ? <Image src={imageFile} /> : null}
       <ImageDescription>{children}</ImageDescription>
     </StoryBox>
   );
