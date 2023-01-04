@@ -1,9 +1,9 @@
-type User @model @auth(rules: [{ allow: public }]) {
+type User @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
   images: [Images] @hasMany
 }
-type Images @model @auth(rules: [{ allow: public }]) {
+type Images @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   tags: String!
   content: String!

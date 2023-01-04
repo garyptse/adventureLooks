@@ -7,6 +7,7 @@ import StoryAlbum from "./frontend/pages/StoryAlbum";
 import NavigationBar from "./frontend/components/NavigationBar";
 import { API } from "aws-amplify";
 import * as mutations from "./graphql/mutations.ts";
+import * as queries from "./graphql/queries.ts";
 
 //AMPLIFY
 import { Amplify } from "aws-amplify";
@@ -26,8 +27,17 @@ function App({ signOut, user }) {
         },
       }).catch((err) => console.log(err));
     }
-    createUser();
-    console.log("createUser", user.username, user.attributes.sub);
+
+    async function checkUsers() {
+      const { data } = await API.graphql({
+        query: queries.listUsers,
+      }).catch((err) => console.log(err));
+
+      if (!data.listUsers.items.map((u) => u.id).includes(user.attributes.sub))
+        createUser();
+    }
+    checkUsers();
+    console.log("checked user");
   }, [user]);
 
   return (

@@ -24,6 +24,7 @@ export type AmplifyDependentResourcesAttributes = {
     },
     "api": {
         "adventurelooks": {
+            "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }

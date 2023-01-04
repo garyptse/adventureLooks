@@ -6,6 +6,15 @@
     "defaultAuthType": {
       "mode": "AMAZON_COGNITO_USER_POOLS",
       "cognitoUserPoolId": "authadventurelooks57843687"
-    }
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 7,
+        "apiKeyExpirationDate": "2023-01-11T20:22:24.824Z",
+        "keyDescription": ""
+      }
+    ],
+    "conflictResolution": {}
   }
 }
