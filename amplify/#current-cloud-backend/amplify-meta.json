@@ -45,7 +45,7 @@
         "IdentityPoolName": "adventurelooks57843687_identitypool_57843687__dev",
         "UserPoolName": "adventurelooks57843687_userpool_57843687"
       },
-      "lastPushTimeStamp": "2023-01-04T14:42:19.475Z",
+      "lastPushTimeStamp": "2023-01-04T17:35:46.620Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/auth/adventurelooks57843687-cloudformation-template.json",
         "logicalId": "authadventurelooks57843687"
@@ -63,7 +63,7 @@
         "region": "us-east-1",
         "type": "LABELS"
       },
-      "lastPushTimeStamp": "2023-01-04T14:42:19.479Z",
+      "lastPushTimeStamp": "2023-01-04T17:35:46.624Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/predictions/adventurelooks-template.json",
         "logicalId": "predictionsadventurelooks"
@@ -76,7 +76,7 @@
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "lastPushTimeStamp": "2023-01-04T14:42:19.482Z",
+      "lastPushTimeStamp": "2023-01-04T17:35:46.627Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "logicalId": "storageamplifyAdventurelooksStorage"
@@ -115,14 +115,16 @@
           "additionalAuthenticationProviders": []
         },
         "GraphQLAPIIdOutput": "y5xcdwmea5abjkzlbe3t5utglq",
-        "GraphQLAPIEndpointOutput": "https://7bnudw7gqnelzcnr7kiudxh5ca.appsync-api.us-east-1.amazonaws.com/graphql"
+        "GraphQLAPIEndpointOutput": "https://7bnudw7gqnelzcnr7kiudxh5ca.appsync-api.us-east-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": null
       },
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiadventurelooks"
       },
-      "lastPushTimeStamp": "2023-01-04T14:42:22.614Z",
-      "lastPushDirHash": "TdMJSkSJzgO+NgTFsRcIqsmzYdo="
+      "lastPushTimeStamp": "2023-01-04T17:35:47.627Z",
+      "lastPushDirHash": "d8JPgTIrP2wksovod68B3Le0EY4=",
+      "testMode": true
     }
   }
 }

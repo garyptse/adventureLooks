@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PhotoLabel from "./frontend/pages/PhotoLabel";
 import Home from "./frontend/pages/Home";
 import StoryAlbum from "./frontend/pages/StoryAlbum";
 
 import NavigationBar from "./frontend/components/NavigationBar";
+import { API } from "aws-amplify";
+import * as mutations from "./graphql/mutations.ts";
 
 //AMPLIFY
 import { Amplify } from "aws-amplify";
@@ -15,6 +17,19 @@ import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
+  useEffect(() => {
+    async function createUser() {
+      await API.graphql({
+        query: mutations.createUser,
+        variables: {
+          input: { name: user.username, id: user.attributes.sub },
+        },
+      }).catch((err) => console.log(err));
+    }
+    createUser();
+    console.log("createUser", user.username, user.attributes.sub);
+  }, [user]);
+
   return (
     <>
       <Router>

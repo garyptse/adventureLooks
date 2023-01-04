@@ -3,18 +3,12 @@
 //  This file was automatically generated and should not be edited.
 
 export type CreateUserInput = {
-  userID: string,
-  images?: Array< ImageInput | null > | null,
   id?: string | null,
-};
-
-export type ImageInput = {
-  imageID: string,
-  blurb: string,
+  name: string,
 };
 
 export type ModelUserConditionInput = {
-  userID?: ModelStringInput | null,
+  name?: ModelStringInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
@@ -62,32 +56,86 @@ export type ModelSizeInput = {
 
 export type User = {
   __typename: "User",
-  userID: string,
-  images?:  Array<Image | null > | null,
   id: string,
+  name: string,
+  images?: ModelImagesConnection | null,
   createdAt: string,
   updatedAt: string,
   owner?: string | null,
 };
 
-export type Image = {
-  __typename: "Image",
-  imageID: string,
-  blurb: string,
+export type ModelImagesConnection = {
+  __typename: "ModelImagesConnection",
+  items:  Array<Images | null >,
+  nextToken?: string | null,
+};
+
+export type Images = {
+  __typename: "Images",
+  id: string,
+  tags: string,
+  content: string,
+  createdAt: string,
+  updatedAt: string,
+  userImagesId?: string | null,
+  owner?: string | null,
 };
 
 export type UpdateUserInput = {
-  userID?: string | null,
-  images?: Array< ImageInput | null > | null,
   id: string,
+  name?: string | null,
 };
 
 export type DeleteUserInput = {
   id: string,
 };
 
+export type CreateImagesInput = {
+  id?: string | null,
+  tags: string,
+  content: string,
+  userImagesId?: string | null,
+};
+
+export type ModelImagesConditionInput = {
+  tags?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  and?: Array< ModelImagesConditionInput | null > | null,
+  or?: Array< ModelImagesConditionInput | null > | null,
+  not?: ModelImagesConditionInput | null,
+  userImagesId?: ModelIDInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type UpdateImagesInput = {
+  id: string,
+  tags?: string | null,
+  content?: string | null,
+  userImagesId?: string | null,
+};
+
+export type DeleteImagesInput = {
+  id: string,
+};
+
 export type ModelUserFilterInput = {
-  userID?: ModelStringInput | null,
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
@@ -99,10 +147,36 @@ export type ModelUserConnection = {
   nextToken?: string | null,
 };
 
+export type ModelImagesFilterInput = {
+  id?: ModelIDInput | null,
+  tags?: ModelStringInput | null,
+  content?: ModelStringInput | null,
+  and?: Array< ModelImagesFilterInput | null > | null,
+  or?: Array< ModelImagesFilterInput | null > | null,
+  not?: ModelImagesFilterInput | null,
+  userImagesId?: ModelIDInput | null,
+};
+
 export type ModelSubscriptionUserFilterInput = {
-  userID?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -120,6 +194,14 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionImagesFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  tags?: ModelSubscriptionStringInput | null,
+  content?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionImagesFilterInput | null > | null,
+  or?: Array< ModelSubscriptionImagesFilterInput | null > | null,
+};
+
 export type CreateUserMutationVariables = {
   input: CreateUserInput,
   condition?: ModelUserConditionInput | null,
@@ -128,13 +210,22 @@ export type CreateUserMutationVariables = {
 export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
-    userID: string,
-    images?:  Array< {
-      __typename: "Image",
-      imageID: string,
-      blurb: string,
-    } | null > | null,
     id: string,
+    name: string,
+    images?:  {
+      __typename: "ModelImagesConnection",
+      items:  Array< {
+        __typename: "Images",
+        id: string,
+        tags: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userImagesId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -149,13 +240,22 @@ export type UpdateUserMutationVariables = {
 export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
-    userID: string,
-    images?:  Array< {
-      __typename: "Image",
-      imageID: string,
-      blurb: string,
-    } | null > | null,
     id: string,
+    name: string,
+    images?:  {
+      __typename: "ModelImagesConnection",
+      items:  Array< {
+        __typename: "Images",
+        id: string,
+        tags: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userImagesId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -170,37 +270,80 @@ export type DeleteUserMutationVariables = {
 export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
-    userID: string,
-    images?:  Array< {
-      __typename: "Image",
-      imageID: string,
-      blurb: string,
-    } | null > | null,
     id: string,
+    name: string,
+    images?:  {
+      __typename: "ModelImagesConnection",
+      items:  Array< {
+        __typename: "Images",
+        id: string,
+        tags: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userImagesId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
   } | null,
 };
 
-export type UserQueryVariables = {
-  userID?: string | null,
+export type CreateImagesMutationVariables = {
+  input: CreateImagesInput,
+  condition?: ModelImagesConditionInput | null,
 };
 
-export type UserQuery = {
-  user?:  Array< {
-    __typename: "User",
-    userID: string,
-    images?:  Array< {
-      __typename: "Image",
-      imageID: string,
-      blurb: string,
-    } | null > | null,
+export type CreateImagesMutation = {
+  createImages?:  {
+    __typename: "Images",
     id: string,
+    tags: string,
+    content: string,
     createdAt: string,
     updatedAt: string,
+    userImagesId?: string | null,
     owner?: string | null,
-  } | null > | null,
+  } | null,
+};
+
+export type UpdateImagesMutationVariables = {
+  input: UpdateImagesInput,
+  condition?: ModelImagesConditionInput | null,
+};
+
+export type UpdateImagesMutation = {
+  updateImages?:  {
+    __typename: "Images",
+    id: string,
+    tags: string,
+    content: string,
+    createdAt: string,
+    updatedAt: string,
+    userImagesId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteImagesMutationVariables = {
+  input: DeleteImagesInput,
+  condition?: ModelImagesConditionInput | null,
+};
+
+export type DeleteImagesMutation = {
+  deleteImages?:  {
+    __typename: "Images",
+    id: string,
+    tags: string,
+    content: string,
+    createdAt: string,
+    updatedAt: string,
+    userImagesId?: string | null,
+    owner?: string | null,
+  } | null,
 };
 
 export type GetUserQueryVariables = {
@@ -210,13 +353,22 @@ export type GetUserQueryVariables = {
 export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
-    userID: string,
-    images?:  Array< {
-      __typename: "Image",
-      imageID: string,
-      blurb: string,
-    } | null > | null,
     id: string,
+    name: string,
+    images?:  {
+      __typename: "ModelImagesConnection",
+      items:  Array< {
+        __typename: "Images",
+        id: string,
+        tags: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userImagesId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -234,15 +386,54 @@ export type ListUsersQuery = {
     __typename: "ModelUserConnection",
     items:  Array< {
       __typename: "User",
-      userID: string,
-      images?:  Array< {
-        __typename: "Image",
-        imageID: string,
-        blurb: string,
-      } | null > | null,
       id: string,
+      name: string,
+      images?:  {
+        __typename: "ModelImagesConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetImagesQueryVariables = {
+  id: string,
+};
+
+export type GetImagesQuery = {
+  getImages?:  {
+    __typename: "Images",
+    id: string,
+    tags: string,
+    content: string,
+    createdAt: string,
+    updatedAt: string,
+    userImagesId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListImagesQueryVariables = {
+  filter?: ModelImagesFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListImagesQuery = {
+  listImages?:  {
+    __typename: "ModelImagesConnection",
+    items:  Array< {
+      __typename: "Images",
+      id: string,
+      tags: string,
+      content: string,
+      createdAt: string,
+      updatedAt: string,
+      userImagesId?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -257,13 +448,22 @@ export type OnCreateUserSubscriptionVariables = {
 export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
-    userID: string,
-    images?:  Array< {
-      __typename: "Image",
-      imageID: string,
-      blurb: string,
-    } | null > | null,
     id: string,
+    name: string,
+    images?:  {
+      __typename: "ModelImagesConnection",
+      items:  Array< {
+        __typename: "Images",
+        id: string,
+        tags: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userImagesId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -278,13 +478,22 @@ export type OnUpdateUserSubscriptionVariables = {
 export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
-    userID: string,
-    images?:  Array< {
-      __typename: "Image",
-      imageID: string,
-      blurb: string,
-    } | null > | null,
     id: string,
+    name: string,
+    images?:  {
+      __typename: "ModelImagesConnection",
+      items:  Array< {
+        __typename: "Images",
+        id: string,
+        tags: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userImagesId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -299,15 +508,78 @@ export type OnDeleteUserSubscriptionVariables = {
 export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
-    userID: string,
-    images?:  Array< {
-      __typename: "Image",
-      imageID: string,
-      blurb: string,
-    } | null > | null,
     id: string,
+    name: string,
+    images?:  {
+      __typename: "ModelImagesConnection",
+      items:  Array< {
+        __typename: "Images",
+        id: string,
+        tags: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userImagesId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateImagesSubscriptionVariables = {
+  filter?: ModelSubscriptionImagesFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateImagesSubscription = {
+  onCreateImages?:  {
+    __typename: "Images",
+    id: string,
+    tags: string,
+    content: string,
+    createdAt: string,
+    updatedAt: string,
+    userImagesId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateImagesSubscriptionVariables = {
+  filter?: ModelSubscriptionImagesFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateImagesSubscription = {
+  onUpdateImages?:  {
+    __typename: "Images",
+    id: string,
+    tags: string,
+    content: string,
+    createdAt: string,
+    updatedAt: string,
+    userImagesId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteImagesSubscriptionVariables = {
+  filter?: ModelSubscriptionImagesFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteImagesSubscription = {
+  onDeleteImages?:  {
+    __typename: "Images",
+    id: string,
+    tags: string,
+    content: string,
+    createdAt: string,
+    updatedAt: string,
+    userImagesId?: string | null,
     owner?: string | null,
   } | null,
 };

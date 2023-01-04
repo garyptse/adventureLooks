@@ -55,6 +55,7 @@ function PhotoLabel() {
       });
   };
 
+  //AUTH
   useEffect(() => {
     //set the user
     async function fetchUser() {
@@ -68,6 +69,10 @@ function PhotoLabel() {
     }
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    // console.log(user?.attributes.sub);
+  }, [user]);
 
   useEffect(() => {
     const fetchData = async () => {

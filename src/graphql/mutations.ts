@@ -8,12 +8,20 @@ export const createUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     createUser(input: $input, condition: $condition) {
-      userID
-      images {
-        imageID
-        blurb
-      }
       id
+      name
+      images {
+        items {
+          id
+          tags
+          content
+          createdAt
+          updatedAt
+          userImagesId
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -26,12 +34,20 @@ export const updateUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     updateUser(input: $input, condition: $condition) {
-      userID
-      images {
-        imageID
-        blurb
-      }
       id
+      name
+      images {
+        items {
+          id
+          tags
+          content
+          createdAt
+          updatedAt
+          userImagesId
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -44,14 +60,70 @@ export const deleteUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     deleteUser(input: $input, condition: $condition) {
-      userID
-      images {
-        imageID
-        blurb
-      }
       id
+      name
+      images {
+        items {
+          id
+          tags
+          content
+          createdAt
+          updatedAt
+          userImagesId
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
+      owner
+    }
+  }
+`;
+export const createImages = /* GraphQL */ `
+  mutation CreateImages(
+    $input: CreateImagesInput!
+    $condition: ModelImagesConditionInput
+  ) {
+    createImages(input: $input, condition: $condition) {
+      id
+      tags
+      content
+      createdAt
+      updatedAt
+      userImagesId
+      owner
+    }
+  }
+`;
+export const updateImages = /* GraphQL */ `
+  mutation UpdateImages(
+    $input: UpdateImagesInput!
+    $condition: ModelImagesConditionInput
+  ) {
+    updateImages(input: $input, condition: $condition) {
+      id
+      tags
+      content
+      createdAt
+      updatedAt
+      userImagesId
+      owner
+    }
+  }
+`;
+export const deleteImages = /* GraphQL */ `
+  mutation DeleteImages(
+    $input: DeleteImagesInput!
+    $condition: ModelImagesConditionInput
+  ) {
+    deleteImages(input: $input, condition: $condition) {
+      id
+      tags
+      content
+      createdAt
+      updatedAt
+      userImagesId
       owner
     }
   }
