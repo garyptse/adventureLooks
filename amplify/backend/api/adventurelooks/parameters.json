@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "adventurelooks",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authadventurelooks57843687",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

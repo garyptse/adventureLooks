@@ -1,7 +1,8 @@
 //src/frontend/PhotoLabel.js
 import React, { useEffect, useState } from "react";
 import { Storage } from "@aws-amplify/storage";
-import { Auth } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
+import * as mutations from "../../graphql/mutations.ts";
 
 //Amplify Predictions
 import { Amplify, Predictions } from "aws-amplify";

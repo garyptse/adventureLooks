@@ -21,6 +21,9 @@
       },
       "storage": {
         "amplifyAdventurelooksStorage": {}
+      },
+      "api": {
+        "adventurelooks": {}
       }
     }
   }
