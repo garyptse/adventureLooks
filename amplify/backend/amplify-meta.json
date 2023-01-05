@@ -131,7 +131,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiadventurelooks"
       },
-      "lastPushTimeStamp": "2023-01-04T20:38:55.959Z",
+      "lastPushTimeStamp": "2023-01-05T13:54:24.386Z",
       "lastPushDirHash": "EVD3FZVTuUI1kv+d0mwtp6iGamQ=",
       "testMode": true
     }

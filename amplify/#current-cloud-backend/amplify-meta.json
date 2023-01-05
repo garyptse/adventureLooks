@@ -12,30 +12,74 @@
       "AmplifyAppId": "d3od7iw2252oau"
     }
   },
+  "api": {
+    "adventurelooks": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "adventurelooks57843687"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2023-01-11T20:22:24.824Z",
+                "apiKeyExpirationDays": 7,
+                "description": ""
+              },
+              "authenticationType": "API_KEY"
+            }
+          ],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authadventurelooks57843687"
+            }
+          }
+        },
+        "GraphQLAPIIdOutput": "y5xcdwmea5abjkzlbe3t5utglq",
+        "GraphQLAPIEndpointOutput": "https://7bnudw7gqnelzcnr7kiudxh5ca.appsync-api.us-east-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-cb6zq3qtdfd4vgi2crvwyvidca"
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync",
+      "lastPushTimeStamp": "2023-01-04T22:22:04.408Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiadventurelooks"
+      },
+      "lastPushDirHash": "Ils+37L8M0VsgqgwFvJ7wVoQVOo="
+    }
+  },
   "auth": {
     "adventurelooks57843687": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
       "customAuth": false,
+      "dependsOn": [],
       "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [],
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
         "mfaConfiguration": "OFF",
         "mfaTypes": [
           "SMS"
         ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
         "verificationMechanisms": [
           "EMAIL"
         ]
       },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
       "output": {
         "UserPoolId": "us-east-1_3xeYTOZxQ",
         "AppClientIDWeb": "562dg25fea7ephmjckhvhvsfu8",
@@ -45,7 +89,7 @@
         "IdentityPoolName": "adventurelooks57843687_identitypool_57843687__dev",
         "UserPoolName": "adventurelooks57843687_userpool_57843687"
       },
-      "lastPushTimeStamp": "2023-01-04T20:37:14.286Z",
+      "lastPushTimeStamp": "2023-01-04T22:22:04.408Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/auth/adventurelooks57843687-cloudformation-template.json",
         "logicalId": "authadventurelooks57843687"
@@ -55,15 +99,15 @@
   },
   "predictions": {
     "adventurelooks": {
-      "providerPlugin": "awscloudformation",
-      "service": "Rekognition",
       "dependsOn": [],
       "identifyType": "identifyLabels",
+      "providerPlugin": "awscloudformation",
+      "service": "Rekognition",
       "output": {
         "region": "us-east-1",
         "type": "LABELS"
       },
-      "lastPushTimeStamp": "2023-01-04T20:37:14.291Z",
+      "lastPushTimeStamp": "2023-01-04T22:22:04.408Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/predictions/adventurelooks-template.json",
         "logicalId": "predictionsadventurelooks"
@@ -73,67 +117,19 @@
   },
   "storage": {
     "amplifyAdventurelooksStorage": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "lastPushTimeStamp": "2023-01-04T20:37:14.294Z",
+      "providerPlugin": "awscloudformation",
+      "service": "S3",
+      "output": {
+        "BucketName": "adventurelooks7b9b78a92e314904bb8017e4d6589765153114-dev",
+        "Region": "us-east-1"
+      },
+      "lastPushTimeStamp": "2023-01-04T22:22:04.408Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "logicalId": "storageamplifyAdventurelooksStorage"
       },
-      "output": {
-        "BucketName": "adventurelooks7b9b78a92e314904bb8017e4d6589765153114-dev",
-        "Region": "us-east-1",
-        "service": "S3"
-      },
-      "lastPushDirHash": "ppqFTbIByeA3NrC5Y+HS3Zm7htE=",
-      "testMode": true,
-      "resourceName": "amplifyAdventurelooksStorage"
-    }
-  },
-  "api": {
-    "adventurelooks": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "adventurelooks57843687",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ],
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "authadventurelooks57843687"
-            }
-          },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "API_KEY",
-              "apiKeyConfig": {
-                "apiKeyExpirationDays": 7,
-                "apiKeyExpirationDate": "2023-01-11T20:22:24.824Z",
-                "description": ""
-              }
-            }
-          ]
-        },
-        "GraphQLAPIIdOutput": "y5xcdwmea5abjkzlbe3t5utglq",
-        "GraphQLAPIEndpointOutput": "https://7bnudw7gqnelzcnr7kiudxh5ca.appsync-api.us-east-1.amazonaws.com/graphql",
-        "GraphQLAPIKeyOutput": "da2-cb6zq3qtdfd4vgi2crvwyvidca"
-      },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "logicalId": "apiadventurelooks"
-      },
-      "lastPushTimeStamp": "2023-01-04T20:37:15.274Z",
-      "lastPushDirHash": "+fX3+UFFn21rPKIsRqgsxYR9LXE=",
-      "testMode": true
+      "lastPushDirHash": "ppqFTbIByeA3NrC5Y+HS3Zm7htE="
     }
   }
 }

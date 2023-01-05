@@ -8,6 +8,7 @@ import NavigationBar from "./frontend/components/NavigationBar";
 import { API } from "aws-amplify";
 import * as mutations from "./graphql/mutations.ts";
 import * as queries from "./graphql/queries.ts";
+import userContext from "./Auth.ts";
 
 //AMPLIFY
 import { Amplify } from "aws-amplify";
@@ -33,15 +34,18 @@ function App({ signOut, user }) {
         query: queries.listUsers,
       }).catch((err) => console.log(err));
 
-      if (!data.listUsers.items.map((u) => u.id).includes(user.attributes.sub))
+      if (
+        !data.listUsers.items.map((u) => u.id).includes(user.attributes.sub)
+      ) {
+        console.log("created new user");
         createUser();
+      }
     }
     checkUsers();
-    console.log("checked user");
   }, [user]);
 
   return (
-    <>
+    <userContext.Provider value={user}>
       <Router>
         <NavigationBar />
         <Routes>
@@ -52,7 +56,7 @@ function App({ signOut, user }) {
           <Route path="/story" element={<StoryAlbum />}></Route>
         </Routes>
       </Router>
-    </>
+    </userContext.Provider>
   );
 }
 export default withAuthenticator(App);

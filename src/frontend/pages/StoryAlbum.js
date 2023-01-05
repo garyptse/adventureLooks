@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import StoryContainer from "../components/StoryContainer";
-import { Auth } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { Storage } from "@aws-amplify/storage";
+import * as subscriptions from "../../graphql/subscriptions.ts";
+import * as queries from "../../graphql/queries.ts";
+import userContext from "../../Auth.ts";
 
 const Title = styled.h1`
   text-transform: uppercase;
@@ -24,39 +27,43 @@ const Page = styled.div`
   background-color: #d1e3dd;
   min-height: 110vh;
 `;
+
+async function getUserImages(userImageID) {
+  console.log(userImageID);
+  await API.graphql({
+    query: queries.getUser,
+    variables: {
+      input: {
+        id: userImageID,
+      },
+    },
+  }).catch((err) => console.log("getUserImages error: ", err));
+}
+
 function StoryAlbum() {
   const [clicks, onClickStory] = useState(0);
-  const [user, setUser] = useState();
   const [albumImages, onChangeAlbumImages] = useState([]);
+
+  const user = useContext(userContext);
+
+  API.graphql(graphqlOperation(subscriptions.onCreateImages)).subscribe({
+    next: (data) => console.log("data: ", data),
+    error: (error) => console.warn(error),
+  });
 
   function newStory() {
     onClickStory(clicks + 1);
     return;
   }
 
-  useEffect(() => {
-    //set the user
-    async function fetchUser() {
-      Auth.currentAuthenticatedUser({
-        bypassCache: true, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-      })
-        .then((user) => {
-          setUser(user);
-        })
-        .catch((err) => console.log(err));
-    }
-    fetchUser();
-  }, []);
-
   async function getImageUrl(key) {
     return await Storage.get(key);
   }
 
   useEffect(() => {
-    if (user?.username) {
+    if (user.username) {
       //get the images stored in s3
-      const storageResults = Storage.list(`${user.username}/`);
-      storageResults
+      Storage.list(`${user.username}/`)
         .then(({ results }) => {
           results.map((result) =>
             getImageUrl(result.key).then((imageUrl) => {

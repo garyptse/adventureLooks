@@ -1,78 +1,78 @@
 {
-  "auth": {
-    "adventurelooks57843687": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false,
-      "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [],
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      }
-    }
-  },
-  "predictions": {
-    "adventurelooks": {
-      "providerPlugin": "awscloudformation",
-      "service": "Rekognition",
-      "dependsOn": [],
-      "identifyType": "identifyLabels"
-    }
-  },
-  "storage": {
-    "amplifyAdventurelooksStorage": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": []
-    }
-  },
   "api": {
     "adventurelooks": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
-          "category": "auth",
-          "resourceName": "adventurelooks57843687",
           "attributes": [
             "UserPoolId"
-          ]
+          ],
+          "category": "auth",
+          "resourceName": "adventurelooks57843687"
         }
       ],
       "output": {
         "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2023-01-11T20:22:24.824Z",
+                "apiKeyExpirationDays": 7,
+                "description": ""
+              },
+              "authenticationType": "API_KEY"
+            }
+          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
               "userPoolId": "authadventurelooks57843687"
             }
-          },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "API_KEY",
-              "apiKeyConfig": {
-                "apiKeyExpirationDays": 7,
-                "apiKeyExpirationDate": "2023-01-11T20:22:24.824Z",
-                "description": ""
-              }
-            }
-          ]
+          }
         }
-      }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
+  "auth": {
+    "adventurelooks57843687": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "predictions": {
+    "adventurelooks": {
+      "dependsOn": [],
+      "identifyType": "identifyLabels",
+      "providerPlugin": "awscloudformation",
+      "service": "Rekognition"
+    }
+  },
+  "storage": {
+    "amplifyAdventurelooksStorage": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

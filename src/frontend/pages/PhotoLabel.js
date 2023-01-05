@@ -1,8 +1,10 @@
 //src/frontend/PhotoLabel.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Storage } from "@aws-amplify/storage";
-import { API, Auth } from "aws-amplify";
+import { API } from "aws-amplify";
 import * as mutations from "../../graphql/mutations.ts";
+import * as subscriptions from "../../graphql/subscriptions.ts";
+import userContext from "../../Auth.ts";
 
 //Amplify Predictions
 import { Amplify, Predictions } from "aws-amplify";
@@ -19,12 +21,41 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+async function createImage({
+  input: { user, labels, imageBlurb },
+  setImageID,
+}) {
+  if (user.username && labels && imageBlurb) {
+    await API.graphql({
+      query: mutations.createImages,
+      variables: {
+        input: {
+          userImagesId: user.attributes.sub,
+          tags: labels,
+          content: imageBlurb,
+        },
+      },
+    })
+      .then((res) => {
+        setImageID(res.data.createImages.id);
+      })
+      .catch((err) => console.log("Create Image Error: ", err));
+  }
+}
+
 function PhotoLabel() {
   const [response, setResponse] = useState(null);
   const [imageBlurb, setImageBlurb] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [user, setUser] = useState();
+  const [imageID, setImageID] = useState(null);
 
+  // API.graphql(graphqlOperation(subscriptions.onCreateImages)).subscribe({
+  //   next: (data) => console.log("data: ", data),
+  //   error: (error) => console.warn(error),
+  // });
+  const user = useContext(userContext);
+
+  //GET LABELS
   const identifyLabel = async (event) => {
     const {
       target: { files },
@@ -55,53 +86,43 @@ function PhotoLabel() {
       });
   };
 
-  //AUTH
-  useEffect(() => {
-    //set the user
-    async function fetchUser() {
-      Auth.currentAuthenticatedUser({
-        bypassCache: true, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-      })
-        .then((user) => {
-          setUser(user);
-        })
-        .catch((err) => console.log(err));
-    }
-    fetchUser();
-  }, []);
-
-  useEffect(() => {
-    // console.log(user?.attributes.sub);
-  }, [user]);
-
+  //GET BLURB
   useEffect(() => {
     const fetchData = async () => {
-      if (response) {
-        const imagePrompt = await openai.createCompletion({
+      await openai
+        .createCompletion({
           model: "text-davinci-003",
           prompt: `You are an adventurer. Write a short blurb of your adventure to a location with these features
             ${response}`,
           temperature: 1,
           max_tokens: 150,
-        });
-        setImageBlurb(imagePrompt.data.choices[0].text);
-      }
+        })
+        .then((imagePrompt) => {
+          setImageBlurb(imagePrompt.data.choices[0].text);
+          createImage({
+            input: { user, labels: response, imageBlurb },
+            setImageID,
+          });
+        })
+        .catch((err) => console.log("OpenAI Error: ", err));
     };
     fetchData();
   }, [response]);
 
+  //ADD IMAGE TO S3
   useEffect(() => {
     async function storagePut() {
-      await Storage.put(`${user.username}/test01`, imageFile, {
-        contentType: "image/png", // contentType is optional
-      });
-    }
-    if (imageFile && user) {
-      storagePut().catch((error) => {
+      console.log(`${user.username}/${imageID}`, imageFile);
+      await Storage.put(`${user.username}/${imageID}`, imageFile, {
+        contentType: "image/jpeg", // contentType is optional
+      }).catch((error) => {
         console.log("Error uploading file: ", error);
       });
     }
-  }, [imageFile, user]);
+    if (imageID && imageFile) {
+      storagePut();
+    }
+  }, [imageFile, imageID, user.username]);
 
   const previewImage = imageFile ? URL.createObjectURL(imageFile) : null;
 
@@ -110,7 +131,7 @@ function PhotoLabel() {
       <div align="center" style={{ backgroundColor: "lightblue" }}>
         <div>
           <p>Identify Label From Photo</p>
-          <input type="file" onChange={identifyLabel}></input>
+          <input type="file" onChange={identifyLabel} />
           <img src={previewImage} alt="" />
           <p>{response}</p>
           <p>{imageBlurb}</p>
