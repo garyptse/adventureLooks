@@ -152,33 +152,13 @@
         }
       }
     },
-    "apiadventurelooks": {
-      "Type": "AWS::CloudFormation::Stack",
-      "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "Parameters": {
-          "AppSyncApiName": "adventurelooks",
-          "DynamoDBBillingMode": "PAY_PER_REQUEST",
-          "DynamoDBEnableServerSideEncryption": false,
-          "AuthCognitoUserPoolId": {
-            "Fn::GetAtt": [
-              "authadventurelooks57843687",
-              "Outputs.UserPoolId"
-            ]
-          },
-          "S3DeploymentBucket": "amplify-adventurelooks-dev-153114-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/e0c32105238f8c7123b0a6fa20bf6f84b5d56fa5",
-          "env": "dev"
-        }
-      }
-    },
     "authadventurelooks57843687": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/auth/adventurelooks57843687-cloudformation-template.json",
         "Parameters": {
           "identityPoolName": "adventurelooks57843687_identitypool_57843687",
-          "allowUnauthenticatedIdentities": false,
+          "allowUnauthenticatedIdentities": true,
           "resourceNameTruncated": "advent57843687",
           "userPoolName": "adventurelooks57843687_userpool_57843687",
           "autoVerifiedAttributes": "email",
@@ -276,6 +256,26 @@
           "s3PermissionsAuthenticatedUploads": "s3:PutObject",
           "s3PermissionsGuestPublic": "DISALLOW",
           "s3PermissionsGuestUploads": "DISALLOW",
+          "env": "dev"
+        }
+      }
+    },
+    "apiadventurelooks": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "Parameters": {
+          "AppSyncApiName": "adventurelooks",
+          "DynamoDBBillingMode": "PAY_PER_REQUEST",
+          "DynamoDBEnableServerSideEncryption": false,
+          "AuthCognitoUserPoolId": {
+            "Fn::GetAtt": [
+              "authadventurelooks57843687",
+              "Outputs.UserPoolId"
+            ]
+          },
+          "S3DeploymentBucket": "amplify-adventurelooks-dev-153114-deployment",
+          "S3DeploymentRootKey": "amplify-appsync-files/e0c32105238f8c7123b0a6fa20bf6f84b5d56fa5",
           "env": "dev"
         }
       }

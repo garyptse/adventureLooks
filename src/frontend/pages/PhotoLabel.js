@@ -114,7 +114,7 @@ function PhotoLabel() {
     async function storagePut() {
       console.log(`${user.username}/${imageID}`, imageFile);
       await Storage.put(`${user.username}/${imageID}`, imageFile, {
-        contentType: "image/jpeg", // contentType is optional
+        contentType: "image/png", // contentType is optional
       }).catch((error) => {
         console.log("Error uploading file: ", error);
       });

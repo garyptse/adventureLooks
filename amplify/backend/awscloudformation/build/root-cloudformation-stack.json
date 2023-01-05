@@ -158,7 +158,7 @@
         "TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/auth/adventurelooks57843687-cloudformation-template.json",
         "Parameters": {
           "identityPoolName": "adventurelooks57843687_identitypool_57843687",
-          "allowUnauthenticatedIdentities": false,
+          "allowUnauthenticatedIdentities": true,
           "resourceNameTruncated": "advent57843687",
           "userPoolName": "adventurelooks57843687_userpool_57843687",
           "autoVerifiedAttributes": "email",
@@ -275,7 +275,7 @@
             ]
           },
           "S3DeploymentBucket": "amplify-adventurelooks-dev-153114-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/5f17ff744f19a469fc31159d7cc12d3318ca00a1",
+          "S3DeploymentRootKey": "amplify-appsync-files/e0c32105238f8c7123b0a6fa20bf6f84b5d56fa5",
           "env": "dev"
         }
       }
