@@ -227,12 +227,12 @@
         }
       }
     },
-    "storageamplifyAdventurelooksStorage": {
+    "storageadventureLooksS3": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "Parameters": {
-          "bucketName": "adventurelooks7b9b78a92e314904bb8017e4d6589765",
+          "bucketName": "adventurelooks6b2700a9554e4a28b674c92b2371d1ab",
           "selectedGuestPermissions": "",
           "selectedAuthenticatedPermissions": "s3:PutObject,s3:GetObject,s3:ListBucket,s3:DeleteObject",
           "unauthRoleName": {
@@ -241,13 +241,13 @@
           "authRoleName": {
             "Ref": "AuthRoleName"
           },
-          "s3PrivatePolicy": "Private_policy_9fffd522",
-          "s3ProtectedPolicy": "Protected_policy_9fffd522",
-          "s3PublicPolicy": "Public_policy_9fffd522",
-          "s3ReadPolicy": "read_policy_9fffd522",
-          "s3UploadsPolicy": "Uploads_policy_9fffd522",
-          "authPolicyName": "s3_amplify_9fffd522",
-          "unauthPolicyName": "s3_amplify_9fffd522",
+          "s3PrivatePolicy": "Private_policy_afb89add",
+          "s3ProtectedPolicy": "Protected_policy_afb89add",
+          "s3PublicPolicy": "Public_policy_afb89add",
+          "s3ReadPolicy": "read_policy_afb89add",
+          "s3UploadsPolicy": "Uploads_policy_afb89add",
+          "authPolicyName": "s3_amplify_afb89add",
+          "unauthPolicyName": "s3_amplify_afb89add",
           "AuthenticatedAllowList": "ALLOW",
           "GuestAllowList": "DISALLOW",
           "s3PermissionsAuthenticatedPrivate": "s3:PutObject,s3:GetObject,s3:DeleteObject",
@@ -275,7 +275,7 @@
             ]
           },
           "S3DeploymentBucket": "amplify-adventurelooks-dev-153114-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/e0c32105238f8c7123b0a6fa20bf6f84b5d56fa5",
+          "S3DeploymentRootKey": "amplify-appsync-files/d4d05fbe14a4ea2bf69dda29411ade60b83943d7",
           "env": "dev"
         }
       }

@@ -17,14 +17,13 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "storage": {
-        "amplifyAdventurelooksStorage": {
+        "adventureLooksS3": {
             "BucketName": "string",
             "Region": "string"
         }
     },
     "api": {
         "adventurelooks": {
-            "GraphQLAPIKeyOutput": "string",
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }

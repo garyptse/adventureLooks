@@ -1,0 +1,14 @@
+{
+  "resourceName": "adventureLooksS3",
+  "policyUUID": "afb89add",
+  "bucketName": "adventurelooks6b2700a9554e4a28b674c92b2371d1ab",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

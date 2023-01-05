@@ -34,7 +34,7 @@
     }
   },
   "storage": {
-    "amplifyAdventurelooksStorage": {
+    "adventureLooksS3": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": []
@@ -61,16 +61,7 @@
               "userPoolId": "authadventurelooks57843687"
             }
           },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "API_KEY",
-              "apiKeyConfig": {
-                "apiKeyExpirationDays": 7,
-                "apiKeyExpirationDate": "2023-01-11T20:22:24.824Z",
-                "description": ""
-              }
-            }
-          ]
+          "additionalAuthenticationProviders": []
         }
       }
     }

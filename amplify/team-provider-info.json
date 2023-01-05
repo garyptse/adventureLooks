@@ -20,7 +20,7 @@
         "adventurelooks": {}
       },
       "storage": {
-        "amplifyAdventurelooksStorage": {}
+        "adventureLooksS3": {}
       },
       "api": {
         "adventurelooks": {}

@@ -1,6 +1,6 @@
 {
   "identityPoolName": "adventurelooks57843687_identitypool_57843687",
-  "allowUnauthenticatedIdentities": false,
+  "allowUnauthenticatedIdentities": true,
   "resourceNameTruncated": "advent57843687",
   "userPoolName": "adventurelooks57843687_userpool_57843687",
   "autoVerifiedAttributes": [
