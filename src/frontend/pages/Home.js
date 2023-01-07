@@ -8,7 +8,7 @@ const ButtonContainer = styled.div`
   margin-right: auto;
   left: 0;
   right: 0;
-  top: 50vh;
+  top: 48vh;
   text-align: center;
 
   display: flex;
@@ -19,7 +19,7 @@ const HomeContainer = styled.div`
   height: 110vh;
   position: relative;
 `;
-const Title = styled.h2`
+const Title = styled.h1`
   position: absolute;
   left: 0;
   width: 100%;

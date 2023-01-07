@@ -77,7 +77,7 @@ export type Images = {
   content: string,
   createdAt: string,
   updatedAt: string,
-  userImagesId?: string | null,
+  userImagesId: string,
   owner?: string | null,
 };
 
@@ -94,7 +94,7 @@ export type CreateImagesInput = {
   id?: string | null,
   tags: string,
   content: string,
-  userImagesId?: string | null,
+  userImagesId: string,
 };
 
 export type ModelImagesConditionInput = {
@@ -126,7 +126,7 @@ export type UpdateImagesInput = {
   id: string,
   tags?: string | null,
   content?: string | null,
-  userImagesId?: string | null,
+  userImagesId: string,
 };
 
 export type DeleteImagesInput = {
@@ -221,7 +221,7 @@ export type CreateUserMutation = {
         content: string,
         createdAt: string,
         updatedAt: string,
-        userImagesId?: string | null,
+        userImagesId: string,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -251,7 +251,7 @@ export type UpdateUserMutation = {
         content: string,
         createdAt: string,
         updatedAt: string,
-        userImagesId?: string | null,
+        userImagesId: string,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -281,7 +281,7 @@ export type DeleteUserMutation = {
         content: string,
         createdAt: string,
         updatedAt: string,
-        userImagesId?: string | null,
+        userImagesId: string,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -305,7 +305,7 @@ export type CreateImagesMutation = {
     content: string,
     createdAt: string,
     updatedAt: string,
-    userImagesId?: string | null,
+    userImagesId: string,
     owner?: string | null,
   } | null,
 };
@@ -323,7 +323,7 @@ export type UpdateImagesMutation = {
     content: string,
     createdAt: string,
     updatedAt: string,
-    userImagesId?: string | null,
+    userImagesId: string,
     owner?: string | null,
   } | null,
 };
@@ -341,7 +341,7 @@ export type DeleteImagesMutation = {
     content: string,
     createdAt: string,
     updatedAt: string,
-    userImagesId?: string | null,
+    userImagesId: string,
     owner?: string | null,
   } | null,
 };
@@ -364,7 +364,7 @@ export type GetUserQuery = {
         content: string,
         createdAt: string,
         updatedAt: string,
-        userImagesId?: string | null,
+        userImagesId: string,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -412,7 +412,7 @@ export type GetImagesQuery = {
     content: string,
     createdAt: string,
     updatedAt: string,
-    userImagesId?: string | null,
+    userImagesId: string,
     owner?: string | null,
   } | null,
 };
@@ -433,7 +433,7 @@ export type ListImagesQuery = {
       content: string,
       createdAt: string,
       updatedAt: string,
-      userImagesId?: string | null,
+      userImagesId: string,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -459,7 +459,7 @@ export type OnCreateUserSubscription = {
         content: string,
         createdAt: string,
         updatedAt: string,
-        userImagesId?: string | null,
+        userImagesId: string,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -489,7 +489,7 @@ export type OnUpdateUserSubscription = {
         content: string,
         createdAt: string,
         updatedAt: string,
-        userImagesId?: string | null,
+        userImagesId: string,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -519,7 +519,7 @@ export type OnDeleteUserSubscription = {
         content: string,
         createdAt: string,
         updatedAt: string,
-        userImagesId?: string | null,
+        userImagesId: string,
         owner?: string | null,
       } | null >,
       nextToken?: string | null,
@@ -543,7 +543,7 @@ export type OnCreateImagesSubscription = {
     content: string,
     createdAt: string,
     updatedAt: string,
-    userImagesId?: string | null,
+    userImagesId: string,
     owner?: string | null,
   } | null,
 };
@@ -561,7 +561,7 @@ export type OnUpdateImagesSubscription = {
     content: string,
     createdAt: string,
     updatedAt: string,
-    userImagesId?: string | null,
+    userImagesId: string,
     owner?: string | null,
   } | null,
 };
@@ -579,7 +579,7 @@ export type OnDeleteImagesSubscription = {
     content: string,
     createdAt: string,
     updatedAt: string,
-    userImagesId?: string | null,
+    userImagesId: string,
     owner?: string | null,
   } | null,
 };

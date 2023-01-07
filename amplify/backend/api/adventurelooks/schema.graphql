@@ -1,7 +1,7 @@
 type User @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
-  images: [Images] @hasMany
+  images: [Images]! @hasMany
 }
 type Images @model @auth(rules: [{ allow: owner }]) {
   id: ID!

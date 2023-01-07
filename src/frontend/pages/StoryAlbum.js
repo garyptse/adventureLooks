@@ -10,6 +10,7 @@ import userContext from "../../Auth.ts";
 const Title = styled.h1`
   text-transform: uppercase;
   text-align: center;
+  color: #f0f0c9;
 `;
 const Stories = styled.div`
   display: flex;
@@ -17,82 +18,100 @@ const Stories = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 `;
-const AddStoryContainer = styled(StoryContainer)`
-  cursor: pointer;
-`;
 const Page = styled.div`
   margin: 0;
   display: grid;
   place-content: center;
-  background-color: #d1e3dd;
+  background-color: #57886c;
   min-height: 110vh;
+  padding: 5em 0;
 `;
 
-async function getUserImages(userImageID) {
-  console.log(userImageID);
+async function getUserImageKeys({ userID, onChangeAlbumKeys, onChangeStory }) {
   await API.graphql({
     query: queries.getUser,
     variables: {
-      input: {
-        id: userImageID,
-      },
+      id: userID,
     },
-  }).catch((err) => console.log("getUserImages error: ", err));
+  })
+    .then((res) => {
+      Storage.list(`${userID}/`)
+        .then((result) => {
+          const existingKeys = result.results.map((s3) => s3.key);
+          onChangeAlbumKeys(existingKeys);
+
+          var mapping = {};
+          res.data.getUser.images.items
+            .filter((item) => existingKeys.includes(`${userID}/${item.id}`))
+            .forEach((item) => {
+              mapping[`${userID}/${item.id}`] = item.content;
+            });
+          onChangeStory(mapping);
+          // onChangeAlbumImages(matches);
+        })
+        .catch((err) => console.log("s3 list error: ", err));
+      // .then((res) => {
+      //   const tempArr = [];
+      //   res.data.getUser.images.items.forEach((item) => {
+      //     getImageUrl(`${userID}/${item.id}`)
+      //       .then((key) => {
+      //         tempArr.push(key);
+      //       })
+      //       .catch((err) => console.log("Error accessing S3: ", err));
+      //   });
+      //   onChangeAlbumImages(tempArr);
+    })
+    .catch((err) => console.log("getUserImageKeys error: ", err));
+}
+
+async function getImageUrl(key) {
+  return await Storage.get(key);
 }
 
 function StoryAlbum() {
-  const [clicks, onClickStory] = useState(0);
+  const [albumKeys, onChangeAlbumKeys] = useState([]);
   const [albumImages, onChangeAlbumImages] = useState([]);
+  const [story, onChangeStory] = useState({});
+  const [refresh, onRefresh] = useState(true);
 
-  const user = useContext(userContext);
+  const { userID } = useContext(userContext);
 
   API.graphql(graphqlOperation(subscriptions.onCreateImages)).subscribe({
-    next: (data) => console.log("data: ", data),
+    next: () => onRefresh(true),
     error: (error) => console.warn(error),
   });
 
-  function newStory() {
-    onClickStory(clicks + 1);
-    return;
-  }
-
-  async function getImageUrl(key) {
-    return await Storage.get(key);
-  }
+  useEffect(() => {
+    if (refresh && userID) {
+      getUserImageKeys({ userID, onChangeAlbumKeys, onChangeStory });
+      onRefresh(false);
+    }
+  }, [refresh, userID]);
 
   useEffect(() => {
-    if (user.username) {
-      //get the images stored in s3
-      Storage.list(`${user.username}/`)
-        .then(({ results }) => {
-          results.map((result) =>
-            getImageUrl(result.key).then((imageUrl) => {
-              onChangeAlbumImages([...albumImages, imageUrl]);
-            })
-          );
-        })
-        .catch((err) => console.log(err));
+    async function getImages() {
+      const images = await Promise.all(
+        albumKeys.map((key) => getImageUrl(key))
+      ).then((value) => value);
+      onChangeAlbumImages(images);
     }
-  }, [user?.username]);
+    if (albumKeys.length > 0) getImages();
+  }, [albumKeys]);
 
   return (
     <Page>
       <Title>Story Album</Title>
       <Stories>
-        <AddStoryContainer
-          onClick={newStory}
+        <StoryContainer
+          onClick={() => {}}
           imageFile={"https://picsum.photos/id/1021/200/200"}
         >
-          Add a new story
-        </AddStoryContainer>
+          + Add New Story
+        </StoryContainer>
         {albumImages.map((image, idx) => (
-          <StoryContainer
-            key={image}
-            imageFile={image ?? "https://picsum.photos/id/1021/200/200"}
-          />
-        ))}
-        {[...new Array(clicks)].map(() => (
-          <StoryContainer />
+          <StoryContainer key={image} imageFile={image}>
+            {story[albumKeys[idx]]}
+          </StoryContainer>
         ))}
       </Stories>
     </Page>

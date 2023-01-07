@@ -17,7 +17,7 @@ const NavigationContainer = styled.ul`
   position: fixed;
   transition: top 0.3s;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
 `;
 
 const NavigationItem = styled.li`
@@ -42,6 +42,7 @@ const Button = styled.button`
     background-color: #221c20;
   }
 `;
+
 function NavigationBar(navigationBarProps) {
   const navigate = useNavigate();
 
@@ -72,24 +73,29 @@ function NavigationBar(navigationBarProps) {
   }, [prevScrollPos, visible, handleScroll]);
 
   return (
-    <NavigationContainer style={{ top: visible ? "0" : "-60px" }}>
-      <div>
-        <NavigationItem>
-          <Button onClick={() => navigate("/")}>Home</Button>
-        </NavigationItem>
-        <NavigationItem>
-          <Button onClick={() => navigate("photos")}>Label Photos</Button>
-        </NavigationItem>
-        <NavigationItem>
-          <Button onClick={() => navigate("story")}>Story Album</Button>
-        </NavigationItem>
-      </div>
-      <div>
-        <NavigationItem>
-          <Button onClick={signOut}>Logout</Button>
-        </NavigationItem>
-      </div>
-    </NavigationContainer>
+    <>
+      <NavigationContainer style={{ top: visible ? "0" : "-60px" }}>
+        <div>
+          <NavigationItem>
+            <Button onClick={() => navigate("/")}>Home</Button>
+          </NavigationItem>
+          <NavigationItem>
+            <Button onClick={() => navigate("photos")}>Label Photos</Button>
+          </NavigationItem>
+          <NavigationItem>
+            <Button onClick={() => navigate("story")}>Story Album</Button>
+          </NavigationItem>
+          <NavigationItem>
+            <Button onClick={() => navigate("adventure")}>Adventure</Button>
+          </NavigationItem>
+        </div>
+        <div>
+          <NavigationItem>
+            <Button onClick={signOut}>Logout</Button>
+          </NavigationItem>
+        </div>
+      </NavigationContainer>
+    </>
   );
 }
 

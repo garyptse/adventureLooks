@@ -3,17 +3,28 @@ import React, { useEffect, useState, useContext } from "react";
 import { Storage } from "@aws-amplify/storage";
 import { API } from "aws-amplify";
 import * as mutations from "../../graphql/mutations.ts";
-import * as subscriptions from "../../graphql/subscriptions.ts";
+// import * as subscriptions from "../../graphql/subscriptions.ts";
 import userContext from "../../Auth.ts";
 
 //Amplify Predictions
 import { Amplify, Predictions } from "aws-amplify";
 import { AmazonAIPredictionsProvider } from "@aws-amplify/predictions";
 import awsconfig from "../../aws-exports";
+import styled from "styled-components";
 Amplify.configure(awsconfig);
 Amplify.addPluggable(new AmazonAIPredictionsProvider());
 Amplify.register(Predictions);
 
+const InputContainer = styled.div`
+  background-color: #57886c;
+  align: center;
+  padding: 10em;
+  min-height: 110vh;
+`;
+
+const PreviewStoryImage = styled.img`
+  width: 25em;
+`;
 //OPENAI: Text Generation
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
@@ -22,15 +33,15 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 async function createImage({
-  input: { user, labels, imageBlurb },
+  input: { userID, labels, imageBlurb },
   setImageID,
 }) {
-  if (user.username && labels && imageBlurb) {
+  if (userID && labels && imageBlurb) {
     await API.graphql({
       query: mutations.createImages,
       variables: {
         input: {
-          userImagesId: user.attributes.sub,
+          userImagesId: userID,
           tags: labels,
           content: imageBlurb,
         },
@@ -48,12 +59,9 @@ function PhotoLabel() {
   const [imageBlurb, setImageBlurb] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imageID, setImageID] = useState(null);
+  const [loading, onLoad] = useState(true);
 
-  // API.graphql(graphqlOperation(subscriptions.onCreateImages)).subscribe({
-  //   next: (data) => console.log("data: ", data),
-  //   error: (error) => console.warn(error),
-  // });
-  const user = useContext(userContext);
+  const { userID } = useContext(userContext);
 
   //GET LABELS
   const identifyLabel = async (event) => {
@@ -64,6 +72,7 @@ function PhotoLabel() {
     if (!file) {
       return;
     }
+    onLoad(true);
     setImageFile(file);
     Predictions.identify({
       labels: {
@@ -88,7 +97,7 @@ function PhotoLabel() {
 
   //GET BLURB
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData() {
       await openai
         .createCompletion({
           model: "text-davinci-003",
@@ -98,45 +107,49 @@ function PhotoLabel() {
           max_tokens: 150,
         })
         .then((imagePrompt) => {
-          setImageBlurb(imagePrompt.data.choices[0].text);
+          const blurb = imagePrompt.data.choices[0].text;
+          setImageBlurb(blurb);
           createImage({
-            input: { user, labels: response, imageBlurb },
+            input: { userID, labels: response, imageBlurb: blurb },
             setImageID,
-          });
+          }).then(() => onLoad(false));
         })
         .catch((err) => console.log("OpenAI Error: ", err));
-    };
-    fetchData();
-  }, [response]);
+    }
+    if (response) fetchData();
+  }, [response, userID]);
 
   //ADD IMAGE TO S3
   useEffect(() => {
     async function storagePut() {
-      console.log(`${user.username}/${imageID}`, imageFile);
-      await Storage.put(`${user.username}/${imageID}`, imageFile, {
+      await Storage.put(`${userID}/${imageID}`, imageFile, {
         contentType: "image/png", // contentType is optional
-      }).catch((error) => {
-        console.log("Error uploading file: ", error);
-      });
+      })
+        .then(() => {
+          console.log("uploaded to s3");
+        })
+        .catch((error) => {
+          console.log("Error uploading file: ", error);
+        });
     }
-    if (imageID && imageFile) {
+    if (!loading) {
       storagePut();
     }
-  }, [imageFile, imageID, user.username]);
+  }, [imageID, userID, imageFile, loading]);
 
   const previewImage = imageFile ? URL.createObjectURL(imageFile) : null;
 
   return (
     <div>
-      <div align="center" style={{ backgroundColor: "lightblue" }}>
+      <InputContainer>
         <div>
           <p>Identify Label From Photo</p>
           <input type="file" onChange={identifyLabel} />
-          <img src={previewImage} alt="" />
+          <PreviewStoryImage src={previewImage} alt="" />
           <p>{response}</p>
           <p>{imageBlurb}</p>
         </div>
-      </div>
+      </InputContainer>
     </div>
   );
 }

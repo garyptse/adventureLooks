@@ -45,7 +45,7 @@
         "IdentityPoolName": "adventurelooks57843687_identitypool_57843687__dev",
         "UserPoolName": "adventurelooks57843687_userpool_57843687"
       },
-      "lastPushTimeStamp": "2023-01-05T15:04:59.988Z",
+      "lastPushTimeStamp": "2023-01-05T20:56:20.959Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/auth/adventurelooks57843687-cloudformation-template.json",
         "logicalId": "authadventurelooks57843687"
@@ -63,7 +63,7 @@
         "region": "us-east-1",
         "type": "LABELS"
       },
-      "lastPushTimeStamp": "2023-01-05T15:04:59.994Z",
+      "lastPushTimeStamp": "2023-01-05T20:56:20.963Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/predictions/adventurelooks-template.json",
         "logicalId": "predictionsadventurelooks"
@@ -76,7 +76,7 @@
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "lastPushTimeStamp": "2023-01-05T15:04:59.998Z",
+      "lastPushTimeStamp": "2023-01-05T20:56:20.966Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "logicalId": "storageadventureLooksS3"
@@ -111,15 +111,15 @@
           },
           "additionalAuthenticationProviders": []
         },
-        "GraphQLAPIIdOutput": "mqcnh4cbkbdxda7dyc64jaxesi",
-        "GraphQLAPIEndpointOutput": "https://ltbesahwmfgdxekybwohg3mlgu.appsync-api.us-east-1.amazonaws.com/graphql"
+        "GraphQLAPIIdOutput": "qwrznn2nynbkzcqiqhnp6uf6g4",
+        "GraphQLAPIEndpointOutput": "https://6qtrhcdrefferbdep5kops7rfq.appsync-api.us-east-1.amazonaws.com/graphql"
       },
+      "lastPushTimeStamp": "2023-01-05T20:56:23.387Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiadventurelooks"
       },
-      "lastPushTimeStamp": "2023-01-05T15:05:03.840Z",
-      "lastPushDirHash": "Y0azta57aE0JRO+TT2H7VODpyIA="
+      "lastPushDirHash": "ppG6v5kow/WrmbzW4O9XsmcinBI="
     }
   }
 }

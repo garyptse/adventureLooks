@@ -275,7 +275,7 @@
             ]
           },
           "S3DeploymentBucket": "amplify-adventurelooks-dev-153114-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/d4d05fbe14a4ea2bf69dda29411ade60b83943d7",
+          "S3DeploymentRootKey": "amplify-appsync-files/e8e909bccc8da331da3680eebe66c44b4873c002",
           "env": "dev"
         }
       }
