@@ -2,10 +2,12 @@ import styled from "styled-components";
 import { API } from "aws-amplify";
 import * as mutations from "../../graphql/mutations.ts";
 import * as queries from "../../graphql/queries.ts";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Storage } from "@aws-amplify/storage";
 import StoryContainer from "../components/StoryContainer";
+import adventureContext from "../context/CurrentAdventure.ts";
+
 //OPENAI: Text Generation
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
@@ -76,8 +78,13 @@ function Adventure() {
   const [userInput, onChangeUserInput] = useState("");
   const [loading, onChangeLoading] = useState(true);
   const [imageURL, setImageURL] = useState();
+  const { setAdventureID } = useContext(adventureContext);
 
   let { imageID } = useParams(); //read from the react rotuer url
+
+  useEffect(() => {
+    setAdventureID(imageID);
+  }, [imageID, setAdventureID]);
 
   //Initial run, get the Image
   useEffect(() => {

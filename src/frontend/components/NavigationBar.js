@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Auth } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "../utilities/debounce";
+import adventureContext from "../context/CurrentAdventure.ts";
 
 const NavigationContainer = styled.ul`
   list-style-type: none;
@@ -45,6 +46,7 @@ const Button = styled.button`
 
 function NavigationBar(navigationBarProps) {
   const navigate = useNavigate();
+  const { adventureID } = useContext(adventureContext);
 
   async function signOut() {
     try {
@@ -80,16 +82,15 @@ function NavigationBar(navigationBarProps) {
             <Button onClick={() => navigate("/")}>Home</Button>
           </NavigationItem>
           <NavigationItem>
-            <Button onClick={() => navigate("photos")}>Label Photos</Button>
-          </NavigationItem>
-          <NavigationItem>
             <Button onClick={() => navigate("story")}>Story Album</Button>
           </NavigationItem>
-          <NavigationItem>
-            <Button onClick={() => navigate("/story/:imageID")}>
-              Adventure
-            </Button>
-          </NavigationItem>
+          {adventureID ? (
+            <NavigationItem>
+              <Button onClick={() => navigate(`/adventure/${adventureID}`)}>
+                Adventure
+              </Button>
+            </NavigationItem>
+          ) : null}
         </div>
         <div>
           <NavigationItem>

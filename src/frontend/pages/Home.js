@@ -8,7 +8,7 @@ const ButtonContainer = styled.div`
   margin-right: auto;
   left: 0;
   right: 0;
-  top: 48vh;
+  top: 50vh;
   text-align: center;
 
   display: flex;
@@ -26,6 +26,7 @@ const Title = styled.h1`
   text-align: center;
   top: 40vh;
   color: white;
+  margin-bottom: 2em;
 `;
 const Button = styled.button`
   display: block;
@@ -48,15 +49,11 @@ function Home() {
   const redirectToStory = () => {
     navigate("/story");
   };
-  const redirectToPhotos = () => {
-    navigate("/photos");
-  };
   return (
     <HomeContainer>
       <Title>Adventure Looks</Title>
       <ButtonContainer>
-        <Button onClick={redirectToPhotos}>Photos</Button>
-        <Button onClick={redirectToStory}>Story</Button>
+        <Button onClick={redirectToStory}>Enter Your Story</Button>
       </ButtonContainer>
     </HomeContainer>
   );

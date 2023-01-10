@@ -4,7 +4,8 @@ import { Storage } from "@aws-amplify/storage";
 import { API } from "aws-amplify";
 import * as mutations from "../../graphql/mutations.ts";
 // import * as subscriptions from "../../graphql/subscriptions.ts";
-import userContext from "../../Auth.ts";
+import userContext from "../context/Auth.ts";
+import { HiRefresh } from "react-icons/hi";
 
 //Amplify Predictions
 import { Amplify, Predictions } from "aws-amplify";
@@ -15,15 +16,42 @@ Amplify.configure(awsconfig);
 Amplify.addPluggable(new AmazonAIPredictionsProvider());
 Amplify.register(Predictions);
 
-const InputContainer = styled.div`
+const Page = styled.div`
   background-color: #57886c;
-  align: center;
-  padding: 10em;
   min-height: 110vh;
+  padding: 6em;
 `;
+const InputContainer = styled.div`
+  background-color: #575366;
+  align: center;
+  padding: 2em;
+  border-radius: 0.7em;
+`;
+const Button = styled.button`
+  background-color: #6e7dab;
+  color: white;
+  margin-right: 0.7em;
+  border: none;
+  border-radius: 0.3em;
+  height: 2.5em;
+  cursor: pointer;
 
+  &:hover {
+    background-color: #596a9b;
+  }
+`;
+const RefreshIcon = styled(HiRefresh)`
+  vertical-align: middle;
+  margin: 0 0.3em;
+`;
 const PreviewStoryImage = styled.img`
   width: 25em;
+`;
+const Title = styled.h2`
+  color: white;
+`;
+const Text = styled.p`
+  color: white;
 `;
 //OPENAI: Text Generation
 const { Configuration, OpenAIApi } = require("openai");
@@ -51,7 +79,6 @@ async function createImage({
       .then((res) => {
         const Data = res.data.createImages;
         storagePut({ userID: Data.userImagesId, imageID: Data.id, imageFile });
-        console.log("Uploaded to GraphQL");
       })
       .catch((err) => console.log("Create Image Error: ", err));
   }
@@ -61,7 +88,7 @@ async function storagePut({ userID, imageID, imageFile }) {
     contentType: "image/png", // contentType is optional
   })
     .then(() => {
-      console.log("uploaded to s3");
+      alert("Uploaded to Story Album");
     })
     .catch((error) => {
       console.log("Error uploading file: ", error);
@@ -122,10 +149,10 @@ function PhotoLabel() {
   const previewImage = imageFile ? URL.createObjectURL(imageFile) : null;
 
   return (
-    <div>
+    <Page>
       <InputContainer>
         <div>
-          <p>Identify Label From Photo</p>
+          <Title>Identify Label From Photo</Title>
           <input
             type="file"
             onChange={(event) => {
@@ -139,20 +166,22 @@ function PhotoLabel() {
               identifyLabel(file);
             }}
           />
+          <br />
           <PreviewStoryImage src={previewImage} alt="" />
-          <p>{response}</p>
-          <p>{imageBlurb}</p>
+          <Text>{response}</Text>
+          <Text>{imageBlurb}</Text>
         </div>
-        <button
+
+        <Button
           onClick={() => {
             setResponse(null);
             setImageBlurb("");
             identifyLabel(imageFile);
           }}
         >
-          Refresh
-        </button>
-        <button
+          <RefreshIcon size={24} />
+        </Button>
+        <Button
           onClick={() => {
             createImage({
               input: { userID, labels: response, imageBlurb },
@@ -160,10 +189,10 @@ function PhotoLabel() {
             });
           }}
         >
-          Upload Image
-        </button>
+          Upload to Story Album
+        </Button>
       </InputContainer>
-    </div>
+    </Page>
   );
 }
 

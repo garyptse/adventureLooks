@@ -9,7 +9,8 @@ import NavigationBar from "./frontend/components/NavigationBar";
 import { API } from "aws-amplify";
 import * as mutations from "./graphql/mutations.ts";
 import * as queries from "./graphql/queries.ts";
-import userContext from "./Auth.ts";
+import userContext from "./frontend/context/Auth.ts";
+import adventureContext from "./frontend/context/CurrentAdventure.ts";
 
 //AMPLIFY
 import { Amplify } from "aws-amplify";
@@ -21,6 +22,7 @@ Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
   const [userID, setUserID] = useState(null);
+  const [adventureID, setAdventureID] = useState(null);
 
   useEffect(() => {
     async function createUser() {
@@ -56,17 +58,19 @@ function App({ signOut, user }) {
 
   return (
     <userContext.Provider value={{ user, userID }}>
-      <Router>
-        <NavigationBar />
-        <Routes>
-          <Route path="/" element={<Home />}>
-            Home
-          </Route>
-          <Route path="photos" element={<PhotoLabel />}></Route>
-          <Route path="story" element={<StoryAlbum />}></Route>
-          <Route path="adventure/:imageID" element={<Adventure />}></Route>
-        </Routes>
-      </Router>
+      <adventureContext.Provider value={{ adventureID, setAdventureID }}>
+        <Router>
+          <NavigationBar />
+          <Routes>
+            <Route path="/" element={<Home />}>
+              Home
+            </Route>
+            <Route path="/story" element={<StoryAlbum />}></Route>
+            <Route path="/story/upload" element={<PhotoLabel />} />
+            <Route path="/adventure/:imageID" element={<Adventure />}></Route>
+          </Routes>
+        </Router>
+      </adventureContext.Provider>
     </userContext.Provider>
   );
 }

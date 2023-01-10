@@ -5,7 +5,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import { Storage } from "@aws-amplify/storage";
 import * as subscriptions from "../../graphql/subscriptions.ts";
 import * as queries from "../../graphql/queries.ts";
-import userContext from "../../Auth.ts";
+import userContext from "../context/Auth.ts";
 import { useNavigate } from "react-router-dom";
 
 const Title = styled.h1`
@@ -97,7 +97,7 @@ function StoryAlbum() {
       <Title>Story Album</Title>
       <Stories>
         <StoryContainer
-          onClick={() => navigate("/photos")}
+          onClick={() => navigate("upload")}
           imageFile={"https://picsum.photos/id/1021/200/200"}
         >
           + Add New Story
