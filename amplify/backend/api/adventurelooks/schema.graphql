@@ -7,5 +7,5 @@ type Images @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   tags: String!
   content: String!
-  historical: [String]
+  historical: [String]!
 }

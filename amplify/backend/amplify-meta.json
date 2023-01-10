@@ -115,7 +115,7 @@
         "GraphQLAPIEndpointOutput": "http://192.168.0.27:20002/graphql",
         "GraphQLAPIKeyOutput": null
       },
-      "lastPushTimeStamp": "2023-01-09T13:29:12.037Z",
+      "lastPushTimeStamp": "2023-01-10T13:26:20.753Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiadventurelooks"

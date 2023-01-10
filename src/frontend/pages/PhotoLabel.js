@@ -34,7 +34,7 @@ const openai = new OpenAIApi(configuration);
 
 async function createImage({
   input: { userID, labels, imageBlurb },
-  setImageID,
+  imageFile,
 }) {
   if (userID && labels && imageBlurb) {
     await API.graphql({
@@ -44,35 +44,38 @@ async function createImage({
           userImagesId: userID,
           tags: labels,
           content: imageBlurb.replace(/(\r\n|\n|\r)/gm, ""),
+          historical: [],
         },
       },
     })
       .then((res) => {
-        setImageID(res.data.createImages.id);
+        const Data = res.data.createImages;
+        storagePut({ userID: Data.userImagesId, imageID: Data.id, imageFile });
+        console.log("Uploaded to GraphQL");
       })
       .catch((err) => console.log("Create Image Error: ", err));
   }
 }
-
+async function storagePut({ userID, imageID, imageFile }) {
+  await Storage.put(`${userID}/${imageID}`, imageFile, {
+    contentType: "image/png", // contentType is optional
+  })
+    .then(() => {
+      console.log("uploaded to s3");
+    })
+    .catch((error) => {
+      console.log("Error uploading file: ", error);
+    });
+}
 function PhotoLabel() {
   const [response, setResponse] = useState(null);
   const [imageBlurb, setImageBlurb] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [imageID, setImageID] = useState(null);
-  const [loading, onLoad] = useState(true);
 
   const { userID } = useContext(userContext);
 
   //GET LABELS
-  const identifyLabel = async (event) => {
-    const {
-      target: { files },
-    } = event;
-    const [file] = files || [];
-    if (!file) {
-      return;
-    }
-    onLoad(true);
+  const identifyLabel = async (file) => {
     setImageFile(file);
     Predictions.identify({
       labels: {
@@ -101,41 +104,20 @@ function PhotoLabel() {
       await openai
         .createCompletion({
           model: "text-davinci-003",
-          prompt: `You are an adventurer. Write a short blurb of your adventure to a location with these features
-            ${response}`,
+          prompt:
+            `You are an adventurer. Write a short blurb of your adventure to a location with these features
+            ${response}`.replace(/(\r\n|\n|\r)/gm, ""),
           temperature: 1,
           max_tokens: 150,
         })
         .then((imagePrompt) => {
           const blurb = imagePrompt.data.choices[0].text;
           setImageBlurb(blurb);
-          createImage({
-            input: { userID, labels: response, imageBlurb: blurb },
-            setImageID,
-          }).then(() => onLoad(false));
         })
         .catch((err) => console.log("OpenAI Error: ", err));
     }
     if (response) fetchData();
   }, [response, userID]);
-
-  //ADD IMAGE TO S3
-  useEffect(() => {
-    async function storagePut() {
-      await Storage.put(`${userID}/${imageID}`, imageFile, {
-        contentType: "image/png", // contentType is optional
-      })
-        .then(() => {
-          console.log("uploaded to s3");
-        })
-        .catch((error) => {
-          console.log("Error uploading file: ", error);
-        });
-    }
-    if (!loading) {
-      storagePut();
-    }
-  }, [imageID, userID, imageFile, loading]);
 
   const previewImage = imageFile ? URL.createObjectURL(imageFile) : null;
 
@@ -144,11 +126,42 @@ function PhotoLabel() {
       <InputContainer>
         <div>
           <p>Identify Label From Photo</p>
-          <input type="file" onChange={identifyLabel} />
+          <input
+            type="file"
+            onChange={(event) => {
+              const {
+                target: { files },
+              } = event;
+              const [file] = files || [];
+              if (!file) {
+                return;
+              }
+              identifyLabel(file);
+            }}
+          />
           <PreviewStoryImage src={previewImage} alt="" />
           <p>{response}</p>
           <p>{imageBlurb}</p>
         </div>
+        <button
+          onClick={() => {
+            setResponse(null);
+            setImageBlurb("");
+            identifyLabel(imageFile);
+          }}
+        >
+          Refresh
+        </button>
+        <button
+          onClick={() => {
+            createImage({
+              input: { userID, labels: response, imageBlurb },
+              imageFile,
+            });
+          }}
+        >
+          Upload Image
+        </button>
       </InputContainer>
     </div>
   );

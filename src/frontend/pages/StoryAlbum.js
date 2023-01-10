@@ -47,7 +47,6 @@ async function getUserQuery({ userID, onChangeAlbumKeys, onChangeStory }) {
               mapping[`${userID}/${item.id}`] = { ...item };
             });
           onChangeStory(mapping);
-          console.log(result);
         })
         .catch((err) => console.log("s3 list error: ", err));
     })
