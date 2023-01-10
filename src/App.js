@@ -63,9 +63,8 @@ function App({ signOut, user }) {
             Home
           </Route>
           <Route path="photos" element={<PhotoLabel />}></Route>
-          <Route path="story" element={<StoryAlbum />}>
-            <Route path=":imageID" element={<Adventure />}></Route>
-          </Route>
+          <Route path="story" element={<StoryAlbum />}></Route>
+          <Route path="adventure/:imageID" element={<Adventure />}></Route>
         </Routes>
       </Router>
     </userContext.Provider>

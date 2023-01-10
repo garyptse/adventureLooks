@@ -86,7 +86,9 @@ function NavigationBar(navigationBarProps) {
             <Button onClick={() => navigate("story")}>Story Album</Button>
           </NavigationItem>
           <NavigationItem>
-            <Button onClick={() => navigate("adventure")}>Adventure</Button>
+            <Button onClick={() => navigate("/story/:imageID")}>
+              Adventure
+            </Button>
           </NavigationItem>
         </div>
         <div>

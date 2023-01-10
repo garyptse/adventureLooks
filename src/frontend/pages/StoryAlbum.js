@@ -6,6 +6,7 @@ import { Storage } from "@aws-amplify/storage";
 import * as subscriptions from "../../graphql/subscriptions.ts";
 import * as queries from "../../graphql/queries.ts";
 import userContext from "../../Auth.ts";
+import { useNavigate } from "react-router-dom";
 
 const Title = styled.h1`
   text-transform: uppercase;
@@ -27,7 +28,7 @@ const Page = styled.div`
   padding: 5em 0;
 `;
 
-async function getUserImageKeys({ userID, onChangeAlbumKeys, onChangeStory }) {
+async function getUserQuery({ userID, onChangeAlbumKeys, onChangeStory }) {
   await API.graphql({
     query: queries.getUser,
     variables: {
@@ -39,29 +40,18 @@ async function getUserImageKeys({ userID, onChangeAlbumKeys, onChangeStory }) {
         .then((result) => {
           const existingKeys = result.results.map((s3) => s3.key);
           onChangeAlbumKeys(existingKeys);
-
           var mapping = {};
           res.data.getUser.images.items
             .filter((item) => existingKeys.includes(`${userID}/${item.id}`))
             .forEach((item) => {
-              mapping[`${userID}/${item.id}`] = item.content;
+              mapping[`${userID}/${item.id}`] = { ...item };
             });
           onChangeStory(mapping);
-          // onChangeAlbumImages(matches);
+          console.log(result);
         })
         .catch((err) => console.log("s3 list error: ", err));
-      // .then((res) => {
-      //   const tempArr = [];
-      //   res.data.getUser.images.items.forEach((item) => {
-      //     getImageUrl(`${userID}/${item.id}`)
-      //       .then((key) => {
-      //         tempArr.push(key);
-      //       })
-      //       .catch((err) => console.log("Error accessing S3: ", err));
-      //   });
-      //   onChangeAlbumImages(tempArr);
     })
-    .catch((err) => console.log("getUserImageKeys error: ", err));
+    .catch((err) => console.log("getUserQuery error: ", err));
 }
 
 async function getImageUrl(key) {
@@ -74,16 +64,21 @@ function StoryAlbum() {
   const [story, onChangeStory] = useState({});
   const [refresh, onRefresh] = useState(true);
 
+  const navigate = useNavigate();
   const { userID } = useContext(userContext);
 
   API.graphql(graphqlOperation(subscriptions.onCreateImages)).subscribe({
     next: () => onRefresh(true),
-    error: (error) => console.warn(error),
+    error: (error) => {},
   });
 
   useEffect(() => {
     if (refresh && userID) {
-      getUserImageKeys({ userID, onChangeAlbumKeys, onChangeStory });
+      getUserQuery({
+        userID,
+        onChangeAlbumKeys,
+        onChangeStory,
+      });
       onRefresh(false);
     }
   }, [refresh, userID]);
@@ -103,14 +98,18 @@ function StoryAlbum() {
       <Title>Story Album</Title>
       <Stories>
         <StoryContainer
-          onClick={() => {}}
+          onClick={() => navigate("/photos")}
           imageFile={"https://picsum.photos/id/1021/200/200"}
         >
           + Add New Story
         </StoryContainer>
         {albumImages.map((image, idx) => (
-          <StoryContainer key={image} imageFile={image}>
-            {story[albumKeys[idx]]}
+          <StoryContainer
+            key={image}
+            imageFile={image}
+            onClick={() => navigate(`/adventure/${story[albumKeys[idx]].id}`)}
+          >
+            {story[albumKeys[idx]].content}
           </StoryContainer>
         ))}
       </Stories>

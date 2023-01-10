@@ -43,7 +43,7 @@ async function createImage({
         input: {
           userImagesId: userID,
           tags: labels,
-          content: imageBlurb,
+          content: imageBlurb.replace(/(\r\n|\n|\r)/gm, ""),
         },
       },
     })

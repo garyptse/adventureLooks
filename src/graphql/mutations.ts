@@ -15,6 +15,7 @@ export const createUser = /* GraphQL */ `
           id
           tags
           content
+          historical
           createdAt
           updatedAt
           userImagesId
@@ -41,6 +42,7 @@ export const updateUser = /* GraphQL */ `
           id
           tags
           content
+          historical
           createdAt
           updatedAt
           userImagesId
@@ -67,6 +69,7 @@ export const deleteUser = /* GraphQL */ `
           id
           tags
           content
+          historical
           createdAt
           updatedAt
           userImagesId
@@ -89,6 +92,7 @@ export const createImages = /* GraphQL */ `
       id
       tags
       content
+      historical
       createdAt
       updatedAt
       userImagesId
@@ -105,6 +109,7 @@ export const updateImages = /* GraphQL */ `
       id
       tags
       content
+      historical
       createdAt
       updatedAt
       userImagesId
@@ -121,6 +126,7 @@ export const deleteImages = /* GraphQL */ `
       id
       tags
       content
+      historical
       createdAt
       updatedAt
       userImagesId

@@ -12,6 +12,7 @@ export const getUser = /* GraphQL */ `
           id
           tags
           content
+          historical
           createdAt
           updatedAt
           userImagesId
@@ -52,6 +53,7 @@ export const getImages = /* GraphQL */ `
       id
       tags
       content
+      historical
       createdAt
       updatedAt
       userImagesId
@@ -70,6 +72,7 @@ export const listImages = /* GraphQL */ `
         id
         tags
         content
+        historical
         createdAt
         updatedAt
         userImagesId

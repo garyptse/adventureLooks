@@ -112,14 +112,16 @@
           "additionalAuthenticationProviders": []
         },
         "GraphQLAPIIdOutput": "qwrznn2nynbkzcqiqhnp6uf6g4",
-        "GraphQLAPIEndpointOutput": "https://6qtrhcdrefferbdep5kops7rfq.appsync-api.us-east-1.amazonaws.com/graphql"
+        "GraphQLAPIEndpointOutput": "http://192.168.0.27:20002/graphql",
+        "GraphQLAPIKeyOutput": null
       },
-      "lastPushTimeStamp": "2023-01-05T20:56:23.387Z",
+      "lastPushTimeStamp": "2023-01-09T13:29:12.037Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-adventurelooks-dev-153114-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiadventurelooks"
       },
-      "lastPushDirHash": "ppG6v5kow/WrmbzW4O9XsmcinBI="
+      "lastPushDirHash": "ppG6v5kow/WrmbzW4O9XsmcinBI=",
+      "testMode": true
     }
   }
 }
