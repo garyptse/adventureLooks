@@ -131,7 +131,6 @@ function Adventure() {
           stop: ["User:"],
         })
         .then((response) => {
-          console.log("GPT3 Complete.");
           appendToHistory({
             text: response.data.choices[0].text.replace(/(\r\n|\n|\r)/gm, ""),
             imageData,
@@ -141,7 +140,6 @@ function Adventure() {
         .catch((err) => console.log("OpenAI Error: ", err));
     }
     if (loading && imageData && imageData.historical.length % 2 === 0) {
-      console.log("GPT3 Processing...");
       onChangeLoading(false);
       generateInteraction();
     }
@@ -168,13 +166,28 @@ function Adventure() {
       ))}
       <form
         onSubmit={(e) => {
-          appendToHistory({
-            text: "USER: " + userInput.replace(/(\r\n|\n|\r)/gm, ""),
-            imageData,
-            onChangeImageData,
-          });
-          onChangeLoading(true);
-          onChangeUserInput("");
+          //only one user response
+          if (imageData.historical.length % 2 === 1) {
+            const regex = "^[A-Z][^?!.]*[?.!]$";
+            const userInputFormatted =
+              "USER: " + userInput.replace(/(\r\n|\n|\r)/gm, "");
+            //must end in punctuation
+            if (userInputFormatted.match(regex)) {
+              appendToHistory({
+                text: userInputFormatted,
+                imageData,
+                onChangeImageData,
+              });
+              onChangeLoading(true);
+              onChangeUserInput("");
+            } else {
+              alert("Please use correct ending punctuation in your sentence!");
+            }
+          } else {
+            alert(
+              "GPT3 just needs a little more time :)\nPlease wait while GPT3 works on your adventure"
+            );
+          }
           e.preventDefault();
         }}
       >
