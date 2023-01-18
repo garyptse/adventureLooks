@@ -113,7 +113,7 @@ function Adventure() {
     }
   }, [imageID]);
 
-  //OPENAI API
+  //OPENAI API test
   useEffect(() => {
     async function generateInteraction() {
       await openai
